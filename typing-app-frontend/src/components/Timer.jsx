@@ -1,13 +1,32 @@
+import { useEffect } from "react";
+import { useTyping } from "../context/TypingContext";
+
 export default function Timer() {
 
+    const {
+        timeLeft,
+        setTimeLeft,
+        isTyping
+    } = useTyping();
+
+    useEffect(() => {
+
+        if (!isTyping) return;
+
+        if (timeLeft <= 0) return;
+
+        const timer = setInterval(() => {
+
+            setTimeLeft(previous => previous - 1);
+
+        }, 1000);
+
+        return () => clearInterval(timer);
+
+    }, [isTyping, timeLeft, setTimeLeft]);
+
     return (
-
-        <h2>
-
-            Time Remaining : 60
-
-        </h2>
-
+        <h2>Time Remaining: {timeLeft}s</h2>
     );
 
 }

@@ -1,15 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Navbar from "../components/Navbar";
+import Paragraph from "../components/Paragraph";
 import StatsCard from "../components/StatsCard";
 import TypingBox from "../components/TypingBox";
 import Timer from "../components/Timer";
 import { getParagraph } from "../services/typingService";
+import { useTyping } from "../context/TypingContext";
 
 export default function Home() {
 
-    const [paragraph, setParagraph] = useState("");
+    const {
+        setParagraph,
+        wpm,
+        accuracy,
+        timeLeft,
+        resetTest
+    } = useTyping();
 
-    const loadParagraph = async () => {
+    async function loadParagraph() {
 
         try {
 
@@ -18,11 +26,11 @@ export default function Home() {
 
         } catch (error) {
 
-            console.error("Failed to load paragraph:", error);
+            console.error(error);
 
         }
 
-    };
+    }
 
     useEffect(() => {
 
@@ -30,7 +38,15 @@ export default function Home() {
 
     }, []);
 
+    function handleRestart() {
+
+        resetTest();
+        loadParagraph();
+
+    }
+
     return (
+
         <>
             <Navbar />
 
@@ -40,46 +56,67 @@ export default function Home() {
                     textAlign: "center"
                 }}
             >
-                <h1>Welcome to TypingPro</h1>
+
+                <h1>TypingPro</h1>
+
+                <br />
 
                 <Timer />
 
                 <br />
 
-                <div
-                    style={{
-                        maxWidth: "900px",
-                        margin: "0 auto",
-                        fontSize: "22px",
-                        lineHeight: "1.8",
-                        border: "1px solid #ccc",
-                        borderRadius: "10px",
-                        padding: "20px",
-                        minHeight: "120px"
-                    }}
-                >
-                    {paragraph}
-                </div>
+                <Paragraph />
 
                 <br />
 
                 <TypingBox />
 
                 <br />
-                <br />
 
                 <div
                     style={{
                         display: "flex",
                         justifyContent: "center",
-                        gap: "30px"
+                        gap: "30px",
+                        marginTop: "30px"
                     }}
                 >
-                    <StatsCard title="WPM" value="0" />
-                    <StatsCard title="Accuracy" value="100%" />
-                    <StatsCard title="Time" value="60" />
+
+                    <StatsCard
+                        title="WPM"
+                        value={wpm}
+                    />
+
+                    <StatsCard
+                        title="Accuracy"
+                        value={`${accuracy}%`}
+                    />
+
+                    <StatsCard
+                        title="Time"
+                        value={timeLeft}
+                    />
+
                 </div>
+
+                <br />
+
+                <button
+                    onClick={handleRestart}
+                    style={{
+                        padding: "12px 30px",
+                        fontSize: "18px",
+                        cursor: "pointer",
+                        borderRadius: "8px"
+                    }}
+                >
+                    Restart Test
+                </button>
+
             </div>
+
         </>
+
     );
+
 }
