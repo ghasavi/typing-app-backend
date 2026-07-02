@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import Navbar from "../components/Navbar";
-import Paragraph from "../components/Paragraph";
 import StatsCard from "../components/StatsCard";
 import TypingBox from "../components/TypingBox";
 import Timer from "../components/Timer";
-import { getParagraph } from "../services/typingService";
+import TypingParagraph from "../components/TypingParagraph";
 import { useTyping } from "../context/TypingContext";
+import { getParagraph } from "../services/typingService";
+import RestartButton from "../components/RestartButton";
 
 export default function Home() {
 
@@ -13,37 +14,30 @@ export default function Home() {
         setParagraph,
         wpm,
         accuracy,
-        timeLeft,
-        resetTest
+        timeLeft
     } = useTyping();
-
-    async function loadParagraph() {
-
-        try {
-
-            const data = await getParagraph();
-            setParagraph(data.text);
-
-        } catch (error) {
-
-            console.error(error);
-
-        }
-
-    }
 
     useEffect(() => {
 
+        async function loadParagraph() {
+
+            try {
+
+                const data = await getParagraph();
+
+                setParagraph(data.text);
+
+            } catch (error) {
+
+                console.error(error);
+
+            }
+
+        }
+
         loadParagraph();
 
-    }, []);
-
-    function handleRestart() {
-
-        resetTest();
-        loadParagraph();
-
-    }
+    }, [setParagraph]);
 
     return (
 
@@ -57,28 +51,36 @@ export default function Home() {
                 }}
             >
 
-                <h1>TypingPro</h1>
-
-                <br />
+                <h1>Welcome to TypingPro</h1>
 
                 <Timer />
 
+                {timeLeft === 0 && (
+                    <h2
+                        style={{
+                            color: "red",
+                            marginTop: "20px"
+                        }}
+                    >
+                        🎉 Test Finished! Click Restart to try again.
+                    </h2>
+                )}
+
                 <br />
 
-                <Paragraph />
+                <TypingParagraph />
 
                 <br />
 
                 <TypingBox />
 
-                <br />
+                <br /><br />
 
                 <div
                     style={{
                         display: "flex",
                         justifyContent: "center",
-                        gap: "30px",
-                        marginTop: "30px"
+                        gap: "30px"
                     }}
                 >
 
@@ -98,20 +100,23 @@ export default function Home() {
                     />
 
                 </div>
+                <div
+                    style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        gap: "30px"
+                    }}
+                >
+
+                    <StatsCard title="WPM" value={wpm} />
+                    <StatsCard title="Accuracy" value={`${accuracy}%`} />
+                    <StatsCard title="Time" value={timeLeft} />
+
+                </div>
 
                 <br />
 
-                <button
-                    onClick={handleRestart}
-                    style={{
-                        padding: "12px 30px",
-                        fontSize: "18px",
-                        cursor: "pointer",
-                        borderRadius: "8px"
-                    }}
-                >
-                    Restart Test
-                </button>
+                <RestartButton />
 
             </div>
 

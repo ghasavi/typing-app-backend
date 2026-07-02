@@ -21,7 +21,6 @@ export default function TypingBox() {
         }
 
         setTypedText(e.target.value);
-
     }
 
     return (
@@ -31,13 +30,13 @@ export default function TypingBox() {
             onChange={handleChange}
             disabled={timeLeft === 0}
             placeholder="Start typing here..."
-            rows={8}
             style={{
                 width: "900px",
-                padding: "20px",
-                fontSize: "20px",
-                borderRadius: "10px",
-                resize: "none"
+                height: "180px",
+                fontSize: "22px",
+                padding: "15px",
+                resize: "none",
+                borderRadius: "10px"
             }}
         />
 

@@ -1,5 +1,4 @@
-import { createContext, useContext, useEffect, useRef, useState } from "react";
-import { saveResult } from "../services/resultService";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const TypingContext = createContext();
 
@@ -14,15 +13,14 @@ export function TypingProvider({ children }) {
     const [wpm, setWpm] = useState(0);
     const [accuracy, setAccuracy] = useState(100);
 
-    // Prevent saving multiple times
-    const resultSaved = useRef(false);
-
-    // Accuracy Calculation
+    // Accuracy
     useEffect(() => {
 
         if (typedText.length === 0) {
+
             setAccuracy(100);
             return;
+
         }
 
         let correct = 0;
@@ -30,7 +28,9 @@ export function TypingProvider({ children }) {
         for (let i = 0; i < typedText.length; i++) {
 
             if (typedText[i] === paragraph[i]) {
+
                 correct++;
+
             }
 
         }
@@ -39,26 +39,28 @@ export function TypingProvider({ children }) {
 
     }, [typedText, paragraph]);
 
-    // WPM Calculation
+    // WPM
     useEffect(() => {
 
         if (!isTyping) {
+
             setWpm(0);
             return;
+
         }
 
         const elapsedSeconds = 60 - timeLeft;
 
-        if (elapsedSeconds <= 0) {
-            return;
-        }
+        if (elapsedSeconds <= 0) return;
 
         let correct = 0;
 
         for (let i = 0; i < typedText.length; i++) {
 
             if (typedText[i] === paragraph[i]) {
+
                 correct++;
+
             }
 
         }
@@ -70,49 +72,6 @@ export function TypingProvider({ children }) {
 
     }, [typedText, paragraph, timeLeft, isTyping]);
 
-    // Save Result Automatically
-    useEffect(() => {
-
-        async function uploadResult() {
-
-            const userId = localStorage.getItem("userId");
-
-            if (!userId) {
-                return;
-            }
-
-            try {
-
-                await saveResult(userId, {
-                    wpm,
-                    accuracy,
-                    time: 60
-                });
-
-                console.log("Result saved!");
-
-            } catch (error) {
-
-                console.error("Failed to save result", error);
-
-            }
-
-        }
-
-        if (
-            timeLeft === 0 &&
-            isTyping &&
-            !resultSaved.current
-        ) {
-
-            resultSaved.current = true;
-            uploadResult();
-
-        }
-
-    }, [timeLeft, isTyping, wpm, accuracy]);
-
-    // Restart Test
     function resetTest() {
 
         setTypedText("");
@@ -120,8 +79,6 @@ export function TypingProvider({ children }) {
         setIsTyping(false);
         setAccuracy(100);
         setWpm(0);
-
-        resultSaved.current = false;
 
     }
 
@@ -157,7 +114,5 @@ export function TypingProvider({ children }) {
 }
 
 export function useTyping() {
-
     return useContext(TypingContext);
-
 }
