@@ -12,8 +12,12 @@ export default function Login() {
 
             const data = await login(username, password);
 
-            // Save JWT token
+            // Save JWT
             localStorage.setItem("token", data.token);
+
+            // Save user information
+            localStorage.setItem("userId", data.user.id);
+            localStorage.setItem("username", data.user.username);
 
             alert("Login Successful!");
 
@@ -35,18 +39,20 @@ export default function Login() {
 
             <input
                 placeholder="Username"
-                onChange={(e)=>setUsername(e.target.value)}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
             />
 
-            <br/><br/>
+            <br /><br />
 
             <input
                 type="password"
                 placeholder="Password"
-                onChange={(e)=>setPassword(e.target.value)}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
             />
 
-            <br/><br/>
+            <br /><br />
 
             <button onClick={handleLogin}>
                 Login

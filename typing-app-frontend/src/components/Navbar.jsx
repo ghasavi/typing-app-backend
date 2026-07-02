@@ -40,6 +40,9 @@ export default function Navbar() {
 
                 <Link to="/profile">Profile</Link>
 
+                <Link to="/leaderboard">
+                    Leaderboard
+                </Link>
                 <button onClick={logout}>
                     Logout
                 </button>
