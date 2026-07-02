@@ -2,11 +2,11 @@ import { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import StatsCard from "../components/StatsCard";
 import TypingBox from "../components/TypingBox";
-import Timer from "../components/Timer";
 import TypingParagraph from "../components/TypingParagraph";
+import Timer from "../components/Timer";
+import RestartButton from "../components/RestartButton";
 import { useTyping } from "../context/TypingContext";
 import { getParagraph } from "../services/typingService";
-import RestartButton from "../components/RestartButton";
 
 export default function Home() {
 
@@ -46,41 +46,74 @@ export default function Home() {
 
             <div
                 style={{
-                    padding: "40px",
-                    textAlign: "center"
+                    maxWidth: "1200px",
+                    margin: "40px auto",
+                    padding: "20px"
                 }}
             >
 
-                <h1>Welcome to TypingPro</h1>
+                <h1
+                    style={{
+                        textAlign: "center",
+                        fontSize: "42px",
+                        marginBottom: "10px"
+                    }}
+                >
+                    Welcome to TypingPro
+                </h1>
 
-                <Timer />
-
-                {timeLeft === 0 && (
-                    <h2
-                        style={{
-                            color: "red",
-                            marginTop: "20px"
-                        }}
-                    >
-                        🎉 Test Finished! Click Restart to try again.
-                    </h2>
-                )}
-
-                <br />
-
-                <TypingParagraph />
-
-                <br />
-
-                <TypingBox />
-
-                <br /><br />
+                <p
+                    style={{
+                        textAlign: "center",
+                        color: "#94a3b8",
+                        fontSize: "18px",
+                        marginBottom: "35px"
+                    }}
+                >
+                    Improve your typing speed and accuracy.
+                </p>
 
                 <div
                     style={{
                         display: "flex",
                         justifyContent: "center",
-                        gap: "30px"
+                        marginBottom: "30px"
+                    }}
+                >
+                    <Timer />
+                </div>
+
+                {timeLeft === 0 && (
+
+                    <h2
+                        style={{
+                            textAlign: "center",
+                            color: "#ef4444",
+                            marginBottom: "30px"
+                        }}
+                    >
+                        🎉 Test Finished! Click Restart to try again.
+                    </h2>
+
+                )}
+
+                <TypingParagraph />
+
+                <div
+                    style={{
+                        marginTop: "30px"
+                    }}
+                >
+                    <TypingBox />
+                </div>
+
+                <div
+                    style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        gap: "30px",
+                        marginTop: "45px",
+                        flexWrap: "wrap"
                     }}
                 >
 
@@ -100,23 +133,16 @@ export default function Home() {
                     />
 
                 </div>
+
                 <div
                     style={{
                         display: "flex",
                         justifyContent: "center",
-                        gap: "30px"
+                        marginTop: "45px"
                     }}
                 >
-
-                    <StatsCard title="WPM" value={wpm} />
-                    <StatsCard title="Accuracy" value={`${accuracy}%`} />
-                    <StatsCard title="Time" value={timeLeft} />
-
+                    <RestartButton />
                 </div>
-
-                <br />
-
-                <RestartButton />
 
             </div>
 

@@ -6,6 +6,8 @@ import Home from "./pages/Home";
 import Leaderboard from "./pages/Leaderboard";
 import Profile from "./pages/Profile";
 import Dashboard from "./pages/Dashboard";
+import Statistics from "./pages/Statistics";
+
 function App() {
 
   return (
@@ -28,6 +30,7 @@ function App() {
 
           <Route path="/leaderboard" element={<Leaderboard />} />
 
+          <Route path="/statistics" element={<Statistics />} />
       </Routes>
 
   );

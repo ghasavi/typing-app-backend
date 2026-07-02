@@ -12,6 +12,14 @@ export default function Navbar() {
 
     };
 
+    const linkStyle = {
+        color: "white",
+        textDecoration: "none",
+        fontSize: "17px",
+        fontWeight: "500",
+        transition: "0.3s"
+    };
+
     return (
 
         <nav
@@ -19,31 +27,72 @@ export default function Navbar() {
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                padding: "20px",
-                background: "#222",
-                color: "white"
+                padding: "18px 50px",
+                background: "#1e293b",
+                borderBottom: "1px solid #334155",
+                boxShadow: "0 8px 25px rgba(0,0,0,0.25)"
             }}
         >
 
-            <h2>TypingPro</h2>
+            <h2
+                style={{
+                    color: "#3b82f6",
+                    fontSize: "30px",
+                    fontWeight: "700",
+                    letterSpacing: "1px"
+                }}
+            >
+                ⌨️ TypingPro
+            </h2>
 
             <div
                 style={{
                     display: "flex",
-                    gap: "20px"
+                    alignItems: "center",
+                    gap: "28px"
                 }}
             >
 
-                <Link to="/home">Home</Link>
+                <Link
+                    to="/home"
+                    style={linkStyle}
+                >
+                    Home
+                </Link>
 
-                <Link to="/leaderboard">Leaderboard</Link>
-
-                <Link to="/profile">Profile</Link>
-
-                <Link to="/leaderboard">
+                <Link
+                    to="/leaderboard"
+                    style={linkStyle}
+                >
                     Leaderboard
                 </Link>
-                <button onClick={logout}>
+
+                <Link
+                    to="/statistics"
+                    style={linkStyle}
+                >
+                    Statistics
+                </Link>
+
+                <Link
+                    to="/profile"
+                    style={linkStyle}
+                >
+                    Profile
+                </Link>
+
+                <button
+                    onClick={logout}
+                    style={{
+                        background: "#ef4444",
+                        color: "white",
+                        border: "none",
+                        borderRadius: "8px",
+                        padding: "10px 18px",
+                        fontSize: "16px",
+                        fontWeight: "600"
+                    }}
+                >
                     Logout
                 </button>
 

@@ -4,17 +4,35 @@ export default function StatsCard({ title, value }) {
 
         <div
             style={{
-                border: "1px solid gray",
-                padding: "20px",
-                width: "150px",
+                background: "#1e293b",
+                border: "1px solid #334155",
+                borderRadius: "18px",
+                width: "180px",
+                padding: "28px",
                 textAlign: "center",
-                borderRadius: "10px"
+                boxShadow: "0 12px 30px rgba(0,0,0,.25)",
+                transition: "0.3s"
             }}
         >
 
-            <h3>{title}</h3>
+            <h3
+                style={{
+                    color: "#94a3b8",
+                    fontWeight: "500",
+                    marginBottom: "15px"
+                }}
+            >
+                {title}
+            </h3>
 
-            <h2>{value}</h2>
+            <h1
+                style={{
+                    color: "#3b82f6",
+                    fontSize: "42px"
+                }}
+            >
+                {value}
+            </h1>
 
         </div>
 

@@ -31,11 +31,14 @@ export default function RestartButton() {
         <button
             onClick={restart}
             style={{
-                marginTop: "30px",
-                padding: "12px 30px",
+                background: "#3b82f6",
+                color: "white",
+                border: "none",
+                borderRadius: "12px",
+                padding: "16px 40px",
                 fontSize: "18px",
-                cursor: "pointer",
-                borderRadius: "8px"
+                fontWeight: "600",
+                boxShadow: "0 10px 25px rgba(59,130,246,.35)"
             }}
         >
             🔄 Restart Test
