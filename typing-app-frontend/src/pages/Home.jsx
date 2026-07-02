@@ -7,11 +7,13 @@ import Timer from "../components/Timer";
 import RestartButton from "../components/RestartButton";
 import { useTyping } from "../context/TypingContext";
 import { getParagraph } from "../services/typingService";
+import DifficultySelector from "../components/DifficultySelector";
 
 export default function Home() {
 
     const {
         setParagraph,
+        difficulty,
         wpm,
         accuracy,
         timeLeft
@@ -23,7 +25,7 @@ export default function Home() {
 
             try {
 
-                const data = await getParagraph();
+                const data = await getParagraph(difficulty);
 
                 setParagraph(data.text);
 
@@ -37,7 +39,7 @@ export default function Home() {
 
         loadParagraph();
 
-    }, [setParagraph]);
+    }, [difficulty, setParagraph]);
 
     return (
 
@@ -80,6 +82,7 @@ export default function Home() {
                         marginBottom: "30px"
                     }}
                 >
+                    <DifficultySelector />
                     <Timer />
                 </div>
 

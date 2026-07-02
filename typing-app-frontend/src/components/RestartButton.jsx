@@ -5,7 +5,8 @@ export default function RestartButton() {
 
     const {
         resetTest,
-        setParagraph
+        setParagraph,
+        difficulty
     } = useTyping();
 
     async function restart() {
@@ -14,7 +15,7 @@ export default function RestartButton() {
 
         try {
 
-            const data = await getParagraph();
+            const data = await getParagraph(difficulty);
 
             setParagraph(data.text);
 

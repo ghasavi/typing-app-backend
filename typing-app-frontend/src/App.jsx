@@ -7,33 +7,102 @@ import Leaderboard from "./pages/Leaderboard";
 import Profile from "./pages/Profile";
 import Dashboard from "./pages/Dashboard";
 import Statistics from "./pages/Statistics";
+import History from "./pages/History";
+
+import ProtectedRoute from "./components/ProtectedRoute";
+import PublicRoute from "./components/PublicRoute";
 
 function App() {
 
-  return (
+    return (
 
-      <Routes>
+        <Routes>
 
-        <Route path="/" element={<Navigate to="/login" />} />
+            <Route
+                path="/"
+                element={<Navigate to="/login" replace />}
+            />
 
-        <Route path="/login" element={<Login />} />
+            <Route
+                path="/login"
+                element={
+                    <PublicRoute>
+                        <Login />
+                    </PublicRoute>
+                }
+            />
 
-        <Route path="/register" element={<Register />} />
+            <Route
+                path="/register"
+                element={
+                    <PublicRoute>
+                        <Register />
+                    </PublicRoute>
+                }
+            />
 
-        <Route path="/home" element={<Home />} />
+            <Route
+                path="/home"
+                element={
+                    <ProtectedRoute>
+                        <Home />
+                    </ProtectedRoute>
+                }
+            />
 
-        <Route path="/dashboard" element={<Dashboard />} />
+            <Route
+                path="/leaderboard"
+                element={
+                    <ProtectedRoute>
+                        <Leaderboard />
+                    </ProtectedRoute>
+                }
+            />
 
-        <Route path="/leaderboard" element={<Leaderboard />} />
+            <Route
+                path="/statistics"
+                element={
+                    <ProtectedRoute>
+                        <Statistics />
+                    </ProtectedRoute>
+                }
+            />
 
-        <Route path="/profile" element={<Profile />} />
+            <Route
+                path="/history"
+                element={
+                    <ProtectedRoute>
+                        <History />
+                    </ProtectedRoute>
+                }
+            />
 
-          <Route path="/leaderboard" element={<Leaderboard />} />
+            <Route
+                path="/profile"
+                element={
+                    <ProtectedRoute>
+                        <Profile />
+                    </ProtectedRoute>
+                }
+            />
 
-          <Route path="/statistics" element={<Statistics />} />
-      </Routes>
+            <Route
+                path="/dashboard"
+                element={
+                    <ProtectedRoute>
+                        <Dashboard />
+                    </ProtectedRoute>
+                }
+            />
 
-  );
+            <Route
+                path="*"
+                element={<Navigate to="/login" replace />}
+            />
+
+        </Routes>
+
+    );
 
 }
 

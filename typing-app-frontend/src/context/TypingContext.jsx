@@ -5,6 +5,7 @@ const TypingContext = createContext();
 export function TypingProvider({ children }) {
 
     const [paragraph, setParagraph] = useState("");
+    const [difficulty, setDifficulty] = useState("easy");
     const [typedText, setTypedText] = useState("");
 
     const [timeLeft, setTimeLeft] = useState(60);
@@ -89,6 +90,9 @@ export function TypingProvider({ children }) {
                 paragraph,
                 setParagraph,
 
+                difficulty,
+                setDifficulty,
+
                 typedText,
                 setTypedText,
 
@@ -100,6 +104,7 @@ export function TypingProvider({ children }) {
 
                 wpm,
                 accuracy,
+
 
                 resetTest
             }}

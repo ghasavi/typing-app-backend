@@ -81,6 +81,13 @@ export default function Navbar() {
                     Profile
                 </Link>
 
+                <Link
+                    to="/history"
+                    style={linkStyle}
+                >
+                    History
+                </Link>
+
                 <button
                     onClick={logout}
                     style={{
